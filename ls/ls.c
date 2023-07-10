@@ -13,12 +13,30 @@ void dirwalk(char *, void (*fcn)(char *));
 
 int main(int argc, char **argv) {
   char *dirname = "ha";
-  if (argc == 1)
-    printf("No arg");
-  else
-    printf("%s", argv[1]);
-  Dirent *dp;
-  DIR *dp;
+  char *filename;
+  struct dirent *dp;
+  DIR *dfd;
+  struct stat stbuf;
 
-  dp = opendir(dirname);
+  if (argc == 1) {
+    printf("No arg");
+    return 1;
+  } else if (argc == 2) {
+    dfd = opendir(".");
+    while ((dp = readdir(dfd))) {
+      filename = dp->d_name;
+      stat(filename, &stbuf);
+      printf("%lld %s\n", stbuf.st_size, filename);
+    }
+    return 0;
+  } else if (argc > 2) {
+    dfd = opendir(argv[2]);
+    while ((dp = readdir(dfd))) {
+      filename = dp->d_name;
+      stat(filename, &stbuf);
+      printf("%lld %s\n", stbuf.st_size, filename);
+    }
+    return 0;
+  }
+  // printf("%d", dfd->)
 }
