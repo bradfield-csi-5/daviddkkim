@@ -12,7 +12,6 @@ void dirwalk(char *, void (*fcn)(char *));
 #define MAX_PATH 1024
 
 int main(int argc, char **argv) {
-  char *dirname = "ha";
   char *filename;
   struct dirent *dp;
   DIR *dfd;
